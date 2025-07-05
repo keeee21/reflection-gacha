@@ -1,0 +1,125 @@
+[
+  {
+    "id": "course_standard",
+    "name": "スタンダードコース",
+    "description": "基本的な5ステップで、チームの状況をバランス良く振り返るための王道コースです。",
+    "situationTags": ["any", "regular"],
+    "totalTimeRange": [43, 57],
+    "phases": [
+      {
+        "name": "1. 場を設定する（チェックイン）",
+        "timeRange": [5, 5],
+        "purpose": "参加者の状態確認とアイスブレイク"
+      },
+      {
+        "name": "2. データを収集する", 
+        "timeRange": [15, 20],
+        "purpose": "期間中の出来事や感情を客観的に集める"
+      },
+      {
+        "name": "3. アイデアを出す",
+        "timeRange": [10, 15], 
+        "purpose": "収集したデータから課題や改善点を見つける"
+      },
+      {
+        "name": "4. 何をすべきか決める",
+        "timeRange": [8, 12],
+        "purpose": "具体的なアクションプランを決める"
+      },
+      {
+        "name": "5. ふりかえりを終了する（チェックアウト）",
+        "timeRange": [5, 5],
+        "purpose": "振り返りの終了と感謝の気持ちを表明"
+      }
+    ],
+    "structure": {
+      "check-in": "checkin_esvp",
+      "gather-data": "gather_timeline",
+      "generate-insights": "insights_kpt_p",
+      "decide-what-to-do": "decide_try",
+      "check-out": "checkout_one_word"
+    }
+  },
+  {
+    "id": "course_low_morale",
+    "name": "チーム元気回復コース",
+    "description": "雰囲気が少し暗いかも？そんな時に、ポジティブな側面に光を当てて、チームの元気を回復させるコースです。",
+    "situationTags": ["low-morale"],
+    "totalTimeRange": [43, 57],
+    "phases": [
+      {
+        "name": "1. 場を設定する（チェックイン）",
+        "timeRange": [5, 5],
+        "purpose": "チームの幸福度を確認し、ポジティブな雰囲気を作る"
+      },
+      {
+        "name": "2. データを収集する", 
+        "timeRange": [15, 20],
+        "purpose": "楽しかったこと、困ったこと、学んだことを整理する"
+      },
+      {
+        "name": "3. アイデアを出す",
+        "timeRange": [10, 15], 
+        "purpose": "好きだったことや学んだことからポジティブな洞察を得る"
+      },
+      {
+        "name": "4. 何をすべきか決める",
+        "timeRange": [8, 12],
+        "purpose": "もっと始めたい良い取り組みを決める"
+      },
+      {
+        "name": "5. ふりかえりを終了する（チェックアウト）",
+        "timeRange": [5, 5],
+        "purpose": "互いへの感謝の気持ちを表明する"
+      }
+    ],
+    "structure": {
+      "check-in": "checkin_happiness",
+      "gather-data": "gather_fdl",
+      "generate-insights": "insights_liked_learned",
+      "decide-what-to-do": "decide_start_more",
+      "check-out": "checkout_appreciation"
+    }
+  },
+  {
+    "id": "course_incident",
+    "name": "障害・インシデント振り返りコース",
+    "description": "発生した問題に対して冷静に事実を分析し、具体的な再発防止策を立てるためのコースです。",
+    "situationTags": ["incident"],
+    "totalTimeRange": [43, 57],
+    "phases": [
+      {
+        "name": "1. 場を設定する（チェックイン）",
+        "timeRange": [5, 5],
+        "purpose": "冷静に事実のみを確認し、責任追及ではないことを明確にする"
+      },
+      {
+        "name": "2. データを収集する", 
+        "timeRange": [15, 20],
+        "purpose": "インシデントの詳細な時系列を客観的に整理する"
+      },
+      {
+        "name": "3. アイデアを出す",
+        "timeRange": [10, 15], 
+        "purpose": "なぜなぜ分析で根本原因を特定する"
+      },
+      {
+        "name": "4. 何をすべきか決める",
+        "timeRange": [8, 12],
+        "purpose": "具体的で実行可能な再発防止策を立てる"
+      },
+      {
+        "name": "5. ふりかえりを終了する（チェックアウト）",
+        "timeRange": [5, 5],
+        "purpose": "今後への信頼度を確認し、チームの結束を深める"
+      }
+    ],
+    "structure": {
+      "check-in": "checkin_facts_only",
+      "gather-data": "gather_timeline_incident",
+      "generate-insights": "insights_why_5",
+      "decide-what-to-do": "decide_action_plan",
+      "check-out": "checkout_confidence"
+    }
+  }
+]

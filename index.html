@@ -1,375 +1,84 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ふりかえりガチャ（解説付き）</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
-
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --background-color: #ecf0f1;
-            --card-bg-color: #ffffff;
-            --text-color: #34495e;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'M PLUS Rounded 1c', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        .container {
-            max-width: 600px;
-            width: 100%;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg-color);
-            border-radius: 15px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            min-height: 180px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        #result {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            word-break: break-all;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-            font-weight: 700;
-        }
-        
-        #details-button {
-            background-color: #2ecc71;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
-            display: none;
-        }
-        #details-button:hover:not(:disabled) {
-            background-color: #27ae60;
-        }
-
-        .button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
-        }
-
-        .button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 0.8rem;
-            color: #7f8c8d;
-        }
-
-        footer a { color: #2980b9; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            text-align: left;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: #7f8c8d;
-        }
-        .modal-close:hover { color: var(--primary-color); }
-        
-        .modal-content h2 {
-            color: var(--secondary-color);
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .modal-content h3 {
-            color: var(--primary-color);
-            border-left: 5px solid var(--secondary-color);
-            padding-left: 10px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-        
-        .modal-content p, .modal-content ul {
-            font-weight: 400;
-            line-height: 1.8;
-        }
-
-        .modal-content ul {
-            padding-left: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ふりかえりフルコースガチャ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h1>ふりかえりフルコースガチャ 🎲</h1>
+      <p>今のチームの状況に合わせて、最適なふりかえりのフルコースを提案します。</p>
+    </header>
 
-    <div class="container">
-      <h1>ふりかえりガチャ</h1>
-
-      <div class="card">
-        <div id="result">なにがでるかな？</div>
-      </div>
-
-      <div class="button-container">
-        <button id="spin-button" class="button">ガチャを回す</button>
-        <button id="details-button" class="button">詳細を見る</button>
-      </div>
-      
-      <footer>
-          ©keeee21
-      </footer>
-    </div>
-
-    <div id="modal" class="modal-overlay">
-      <div class="modal-content">
-        <span id="modal-close-button" class="modal-close">&times;</span>
-        <h2 id="modal-title"></h2>
-        <h3><emoji>📝</emoji> 概要</h3>
-        <p id="modal-description"></p>
-        <h3><emoji>🛠️</emoji> やり方</h3>
-        <ul id="modal-steps"></ul>
-        <h3><emoji>💡</emoji> おすすめの状況</h3>
-        <p id="modal-situation"></p>
+    <div class="tab-container">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="gacha">ガチャ</button>
+        <button class="tab-button" data-tab="techniques">技法一覧</button>
       </div>
     </div>
 
-    <script>
-      const frameworks = [
-            {
-              name: "KPT",
-              description: "Keep(良かったこと・続けたいこと)、Problem(問題点・課題)、Try(次に取り組むこと)の3つの観点で振り返る、最もシンプルで代表的なフレームワークです。",
-              steps: [
-                  "参加者全員で、Keep(良かったこと、続けたいこと)を付箋などに書き出し、共有します。",
-                  "次に、Problem(問題だと感じたこと、課題)を書き出し、共有します。",
-                  "出てきたProblemを解決するために、Try(次に試すこと)を考え、具体的なアクションを決めます。"
-              ],
-              situation: "初めてのふりかえりや、時間をかけずに定期的なサイクルを回したい時。チームの状態を素早く把握したい場合におすすめです。"
-            },
-            {
-              name: "KMT",
-              description: "Keep(良かったこと・続けたいこと)、Moyamoya(モヤモヤしていること/なんとなく気になっていること)、Try(次に取り組むこと)の3つの観点で振り返る、最もシンプルで代表的なフレームワークです。",
-              steps: [
-                  "参加者全員で、Keep(良かったこと、続けたいこと)を付箋などに書き出し、共有します。",
-                  "次に、Moyamoya(モヤモヤしていること)を書き出し、共有します。",
-                  "出てきたMoyamoyaを受け止めて、Try(次に試すこと)を考え、具体的なアクションを決めます。"
-              ],
-              situation: "初めてのふりかえりや、時間をかけずに定期的なサイクルを回したい時。チームの状態を素早く把握したい場合におすすめです。"
-            },
-            {
-              name: "4Ls",
-              description: "Liked(良かったこと), Learned(学んだこと), Lacked(足りなかったこと), Longed for(望むこと)の4つのLで振り返る手法。事実だけでなく感情や学びにも焦点を当てます。",
-              steps: [
-                  "4つの象限(Liked, Learned, Lacked, Longed for)を用意します。",
-                  "参加者はそれぞれの象限に当てはまることを付箋に書き出します。",
-                  "全員で共有し、特にLackedとLonged forから次のアクションを考えます。"
-              ],
-              situation: "チームの学びや成長を重視したい時や、ポジティブな雰囲気で振り返りを進めたい時におすすめです。"
-            },
-            {
-              name: "Starfish",
-              description: "5つの観点(Keep, More of, Less of, Stop, Start)で活動を振り返る手法。KPTより多角的にチームの活動を捉えることができます。",
-              steps: [
-                  "ヒトデのような5つの領域(Keep, More of, Less of, Stop, Start)を描きます。",
-                  "参加者は各領域に当てはまることを書き出します。",
-                  "特にMore of, Less of, Startから具体的なアクションを議論します。"
-              ],
-              situation: "KPTに慣れてきて、もう少し活動を細かく分析・改善したいフェーズのチームにおすすめです。"
-            },
-            {
-              name: "Timeline",
-              description: "スプリントやプロジェクトの期間を一本の線で描き、その時々の出来事(客観的な事実)や感情の起伏を可視化する手法です。",
-              steps: [
-                  "横軸に時間を、縦軸に感情(ポジティブ/ネガティブ)をとったグラフを用意します。",
-                  "参加者は期間中の出来事と、その時の感情を付箋に書いて時系列に沿って貼り付けます。",
-                  "感情の浮き沈みが激しい点などに注目し、その背景について議論します。"
-              ],
-              situation: "長期間のプロジェクトを振り返る時や、チーム全体の感情の動きを共有して一体感を高めたい時に有効です。"
-            },
-            {
-              name: "FDL (Fun / Done / Learn)",
-              description: "「楽しかったこと」「完了したこと」「学んだこと」の3つのポジティブな観点から振り返る手法。チームの士気を高めます。",
-              steps: [
-                  "Done(完了したこと)を事実ベースでリストアップする。",
-                  "その中でFun(楽しかったこと)やポジティブな感情を共有する。",
-                  "最後にLearn(学んだこと、気づき)を共有する。"
-              ],
-              situation: "プロジェクトのキックオフや、チームのモチベーションを高めたい時、ポジティブな雰囲気で終わりたい時に最適です。"
-            },
-            { name: "YWT", description: "「Y(やったこと)」「W(わかったこと)」「T(つぎにやること)」の3点で振り返る、日本で生まれたフレームワーク。", steps: ["「やったこと」を事実ベースで書き出す。", "そこから「わかったこと」(学びや気づき)を抽出する。", "わかったことを基に「つぎにやること」を考える。"], situation: "個人の経験や学びをチームで共有し、成長を促したい時に適しています。" },
-            { name: "Start, Stop, Continue", description: "「これから始めること」「やめること」「今後も続けること」の3点でシンプルに活動を振り返ります。", steps: ["Continue(続けること)を洗い出す。", "Stop(やめるべきこと)を洗い出す。", "Start(新しく始めること)を洗い出す。"], situation: "チームのプロセスやルールを直接的に見直したい時に効果的です。" },
-            { name: "WWW", description: "「Worked well(上手くいったこと)」「a little less well(あまり上手くいかなかったこと)」「wish to have done(こうすれば良かったと思うこと)」の3点で振り返ります。", steps: ["上手くいったことを共有する。", "あまり上手くいかなかったことを共有する。", "こうすれば良かった、という改善案を出し合う。"], situation: "結果だけでなく過程にも焦点を当て、改善点を見つけたい時に向いています。" },
-            { name: "Mad, Sad, Glad", description: "「怒り」「悲しみ」「喜び」といった感情の観点から出来事を振り返る手法。", steps: ["Glad(嬉しかったこと)を共有する。", "Sad(悲しかったこと)を共有する。", "Mad(腹が立ったこと)を共有し、その原因を探る。"], situation: "チーム内の感情的な側面に目を向け、共感を深めたい時に有効です。心理的安全性が高いチーム向けです。" },
-            { name: "DAKI", description: "「Drop(捨てる)」「Add(加える)」「Keep(続ける)」「Improve(改善する)」の4つの観点から活動を評価します。", steps: ["Keep(続けること)とImprove(改善すること)を洗い出す。", "Drop(捨てること)とAdd(新しく加えること)を洗い出す。", "具体的なアクションプランに繋げる。"], situation: "チームのプラクティスやツールなどを棚卸ししたい時に適しています。" },
-            { name: "Happiness", description: "スプリント中の「幸福度」を数値(例: 1〜5)で評価し、その理由を共有するシンプルな手法。", steps: ["各メンバーが幸福度を匿名で投票する。", "全体の平均や分布を確認する。", "なぜその点数を付けたのか、理由を任意で共有し、対話する。"], situation: "チームの士気や満足度を継続的に測定したい時に便利です。" },
-            { name: "Plus/Delta", description: "「Plus(良かった点)」と「Delta(改善点・変化点)」の2つの観点だけで振り返る、非常にシンプルな手法。", steps: ["Plus(良かった点)を書き出す。", "Delta(改善点)を書き出す。", "Deltaの中から次に取り組むことを決める。"], situation: "非常に時間がない時や、研修・イベントの直後など、素早いフィードバックが必要な時に使えます。" },
-            { name: "ESVP", description: "Explorer(探検家), Shopper(買い物客), Vacationer(休暇中の人), Prisoner(囚人)の4タイプから、ふりかえりへの参加意欲を表明するアイスブレイク。", steps: ["4つのタイプの意味を説明する。", "参加者は自分が今どのタイプに近いか匿名で投票する。", "結果を共有し、チームのコンディションを確認する。"], situation: "ふりかえりの冒頭で参加者の心理状態を把握し、場の空気を温めるのに最適です。" }
-        ];
+    <div class="tab-content" id="gacha-tab">
+      <div class="gacha-controls">
+        <div class="situation-selector">
+          <label for="situation">今のチーム状況は？</label>
+          <select id="situation">
+            <option value="any">どんな状況でも</option>
+            <option value="regular">定例ふりかえり</option>
+            <option value="low-morale">チームの雰囲気が暗い</option>
+            <option value="incident">障害が発生した</option>
+          </select>
+        </div>
+        <button id="spin-button" class="button-primary">ガチャを回す</button>
+      </div>
 
-      const resultElement = document.getElementById('result');
-      const spinButton = document.getElementById('spin-button');
-      const detailsButton = document.getElementById('details-button');
-      const modal = document.getElementById('modal');
-      const modalCloseButton = document.getElementById('modal-close-button');
-      const modalTitle = document.getElementById('modal-title');
-      const modalDescription = document.getElementById('modal-description');
-      const modalSteps = document.getElementById('modal-steps');
-      const modalSituation = document.getElementById('modal-situation');
-      const body = document.body;
+      <div id="course-result" class="course-result-container">
+        </div>
+    </div>
 
-      // --- 変数定義 ---
-      let currentFramework = null;
-      let lastResultName = '';
+    <div class="tab-content" id="techniques-tab" style="display: none;">
+      <div class="phase-list">
+        <div class="phase-section" data-phase="check-in">
+          <h2>🚀 チェックイン</h2>
+          <p>参加者の状態確認とアイスブレイク</p>
+          <div class="technique-grid" id="checkin-techniques"></div>
+        </div>
+        
+        <div class="phase-section" data-phase="gather-data">
+          <h2>📊 データ収集</h2>
+          <p>期間中の出来事や感情を客観的に集める</p>
+          <div class="technique-grid" id="gather-techniques"></div>
+        </div>
+        
+        <div class="phase-section" data-phase="generate-insights">
+          <h2>💡 洞察生成</h2>
+          <p>収集したデータから課題や改善点を見つける</p>
+          <div class="technique-grid" id="insights-techniques"></div>
+        </div>
+        
+        <div class="phase-section" data-phase="decide-what-to-do">
+          <h2>🎯 アクション決定</h2>
+          <p>具体的なアクションプランを決める</p>
+          <div class="technique-grid" id="decide-techniques"></div>
+        </div>
+        
+        <div class="phase-section" data-phase="check-out">
+          <h2>🎉 チェックアウト</h2>
+          <p>振り返りの終了と感謝の気持ちを表明</p>
+          <div class="technique-grid" id="checkout-techniques"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      // --- イベントリスナー ---
-      spinButton.addEventListener('click', () => {
-          spinButton.disabled = true;
-          detailsButton.style.display = 'none';
-          resultElement.style.fontSize = '2.2rem';
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="modal-close-button" class="modal-close">&times;</button>
+    </div>
+  </div>
 
-          let shuffleCount = 0;
-          const shuffleInterval = setInterval(() => {
-              let randomFramework;
-              do {
-                  const randomIndex = Math.floor(Math.random() * frameworks.length);
-                  randomFramework = frameworks[randomIndex];
-              } while (frameworks.length > 1 && randomFramework.name === lastResultName);
-
-              resultElement.textContent = randomFramework.name;
-              shuffleCount++;
-
-              if (shuffleCount > 15) {
-                  clearInterval(shuffleInterval);
-                  
-                  currentFramework = randomFramework;
-                  lastResultName = currentFramework.name;
-                  
-                  adjustFontSize(currentFramework.name);
-
-                  spinButton.disabled = false;
-                  detailsButton.style.display = 'inline-block';
-              }
-          }, 50);
-      });
-
-      detailsButton.addEventListener('click', () => {
-          if (currentFramework) {
-              populateModal(currentFramework);
-              modal.style.display = 'flex';
-              body.classList.add('modal-open');
-          }
-      });
-
-      const closeModal = () => {
-          modal.style.display = 'none';
-          body.classList.remove('modal-open');
-      };
-
-      modalCloseButton.addEventListener('click', closeModal);
-
-      modal.addEventListener('click', (event) => {
-          if (event.target === modal) {
-              closeModal();
-          }
-      });
-
-      function adjustFontSize(text) {
-          if (text.length > 20) {
-              resultElement.style.fontSize = '1.8rem';
-          }
-          if (text.length > 30) {
-              resultElement.style.fontSize = '1.5rem';
-          }
-      }
-
-      function populateModal(framework) {
-          modalTitle.textContent = framework.name;
-          modalDescription.textContent = framework.description;
-          modalSituation.textContent = framework.situation;
-          
-          modalSteps.innerHTML = '';
-          framework.steps.forEach(step => {
-              const li = document.createElement('li');
-              li.textContent = step;
-              modalSteps.appendChild(li);
-          });
-      }
-    </script>
+  <script src="index.js"></script>
 </body>
 </html>
